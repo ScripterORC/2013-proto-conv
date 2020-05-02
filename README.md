@@ -32,6 +32,7 @@ My code is (somewhat) annotated to help you follow it, but I'll still give a bri
 
 1. Place exception hooks for 1. obtaining the lua state 2. redirecting Roblox output to the exploit console window 3. trustcheck.
 To the uninformed, exception hooks ""inject"" code into relevant functions by causing them to raise an exception, catching it with a custom "Vectored Exception Handler", and running our own code afterwards. More on that in the source code. (by the way, take the word "inject" with a grain of salt. That may not be the most accurate way to describe it, but I am trying to be simple.)
+
 NOTE: For reference, the Lua state is G(L)->mainthread, or the Lua state's associated global state's main thread. This is because using the Lua state as is can mess up the script that it was from.
 
 2. Set the current identity to 7 so that the scripts we execute have unrestricted access to ROBLOX's environment (can get/set restricted fields like a Player's name, call functions like game:HttpGet, and so on)
@@ -42,8 +43,8 @@ NOTE: For reference, the Lua state is G(L)->mainthread, or the Lua state's assoc
   3. Acquiring the resulting Proto (function prototype).
   4. Converting it to a ROBLOX Proto (though it's literally just luaF_newproto and filling in the important members)
   5. Creating a new LClosure in ROBLOX
-    5a. Setting the LClosure's Proto member to our converted Proto
-    5b. Populating the LClosure's table of upvalues for the function to use.
+		5a. Setting the LClosure's Proto member to our converted Proto
+		5b. Populating the LClosure's table of upvalues for the function to use.
   6. Pushing the LClosure onto the stack
   7. Calling the LClosure with lua_resume
   8. Cleaning up the stack
