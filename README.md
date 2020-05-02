@@ -43,8 +43,8 @@ NOTE: For reference, the Lua state is G(L)->mainthread, or the Lua state's assoc
   3. Acquiring the resulting Proto (function prototype).
   4. Converting it to a ROBLOX Proto (though it's literally just luaF_newproto and filling in the important members)
   5. Creating a new LClosure in ROBLOX
-		5a. Setting the LClosure's Proto member to our converted Proto
-		5b. Populating the LClosure's table of upvalues for the function to use.
+	5a. Setting the LClosure's Proto member to our converted Proto
+	5b. Populating the LClosure's table of upvalues for the function to use.
   6. Pushing the LClosure onto the stack
   7. Calling the LClosure with lua_resume
   8. Cleaning up the stack
